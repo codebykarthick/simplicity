@@ -1,0 +1,285 @@
+.citation-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+    background-color: #fafafa;
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+.citation-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.citation-header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.citation-title {
+    font-size: 18px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.citation-meta {
+    font-size: 14px;
+    color: #888;
+    margin: 0;
+}
+
+.citation-link {
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: underline;
+    margin-right: auto;
+}
+
+.abstract-toggle {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    width: fit-content;
+}
+
+.abstract-toggle:hover {
+    background-color: #222;
+}
+
+.abstract-box {
+    margin-top: 12px;
+    padding: 12px;
+    background-color: #f4f4f4;
+    border-radius: 6px;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    overflow: hidden;
+}
+
+.abstract-box.hidden {
+    max-height: 0;
+    opacity: 0;
+    padding: 0;
+    margin: 0;
+    visibility: hidden;
+}
+
+* {
+    font-family: Inter;
+}
+
+.bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bar-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+a {
+    text-decoration: none !important;
+    color: inherit;
+}
+
+.link-button {
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.link-button:hover {
+    background-color: #e0e0e0;
+}
+
+.link-button:active {
+    background-color: #cfcfcf;
+    transform: scale(0.97);
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    padding-left: 8px;
+    padding-right: 8px;
+    gap: 100px;
+}
+
+.search {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.jumbo {
+    font-size: 72px !important;
+    margin: 0;
+}
+
+.sumbo {
+    font-size: 36px !important;
+    margin: 0;
+}
+
+.subtext {
+    font-weight: 500;
+    color: #b5b4b4;
+}
+
+#search-bar {
+    font-size: 16px;
+    background-color: #f0f0f0;
+    padding: 12px 16px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+    transition: box-shadow 0.2s ease-in-out;
+    /* add left padding to make room for the icon */
+    padding-left: 40px;
+}
+
+#search-bar:focus {
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+.search-bar-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.search-bar-wrapper .fe-search {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    font-size: 18px;
+    pointer-events: none;
+}
+
+.btn-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.btn-wrapper button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-wrapper button:hover {
+    background-color: #333;
+}
+
+.input-full {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    gap: 8px;
+}
+
+.select-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 80px;
+    /* adjust as needed to match select width */
+}
+
+.select-wrapper .fe-arrow-down {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    font-size: 18px;
+    pointer-events: none;
+}
+
+.max-results {
+    -webkit-appearance: none;
+    /* disables Safari's native dropdown styling */
+    -moz-appearance: none;
+    appearance: none;
+
+    font-size: 16px;
+    background-color: #f0f0f0;
+    padding: 12px 16px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    box-sizing: border-box;
+    outline: none;
+    transition: box-shadow 0.2s ease-in-out;
+    height: 48px;
+    background-image: none;
+    /* removes default dropdown arrow */
+    padding-right: 40px;
+    width: 100%;
+    /* make room for the arrow */
+}
+
+.spacer {
+    padding-top: 40px;
+}
+
+.response {
+    width: 100%;
+}
+
+.hidden {
+    visibility: hidden;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+}
+
+.loader {
+    width: 50px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 8px solid;
+    border-color: #000 #0000;
+    animation: l1 1s infinite;
+}
+
+@keyframes l1 {
+    to {
+        transform: rotate(.5turn)
+    }
+}
+
+.loader-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+#post-text {
+    transition: min-height 0.4s ease-in-out;
+}

@@ -1,0 +1,3 @@
+arxiv:
+  url: "http://export.arxiv.org/api/query"
+  max_results: 10

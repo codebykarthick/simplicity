@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simplicity</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="stylesheet" href="static/css/feathericon.min.css">
+</head>
+
+<body>
+    <div class="page">
+        <header class="bar">
+            <div class="bar-left">
+                <h1><a href=".">Simplicity</a></h1>
+            </div>
+            <div class="bar-right"><a href="http://github.com/codebykarthick" class="github link-button" target="_blank"
+                    rel="noopener noreferrer">GitHub</a><a href="http://codebykarthick.github.io"
+                    class="blog link-button" target="_blank" rel="noopener noreferrer">Blog</a></div>
+        </header>
+
+        <div class="search">
+            <h1 class="jumbo">Search</h1>
+            <p class="subtext">
+                Searches local indexed data, fetches metadata from ArXiv for generation as a fallback.</p>
+            <form id="search-form" style="width: 100%;">
+                <div class="input-full">
+                    <div class="search-bar-wrapper">
+                        <i class="fe fe-search"></i>
+                        <input type="text" id="search-bar" name="query" placeholder="Enter your search query here."
+                            required minlength="6" />
+                    </div>
+                    <div class="select-wrapper">
+                        <select name="limit" class="max-results" id="limit">
+                            <option value="1">1</option>
+                            <option value="5" selected>5</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                        </select>
+                        <i class="fe fe-arrow-down"></i>
+                    </div>
+                </div>
+                <div class="btn-wrapper">
+                    <button type="submit">Fetch Content</button>
+                </div>
+            </form>
+            <div class="spacer"></div>
+            <div class="response">
+                <h1 class="sumbo">Summary</h1>
+                <div class="not-hidden" id="pre-text">
+                    <p class="subtext">Your generated summary will be shown here!</p>
+                </div>
+                <div class="loader-wrapper">
+                    <div class="loader hidden" id="mid-text"></div>
+                </div>
+                <div class="hidden" id="post-text">
+                    <p id="summary">#</p>
+                    <div class="spacer"></div>
+                    <h1 class="sumbo">Citations</h1>
+                    <div id="citations"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="static/js/script.js"></script>
+</body>
+
+</html>
