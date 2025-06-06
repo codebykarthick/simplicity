@@ -1,9 +1,51 @@
+/* --------------- THEME VARIABLES --------------- */
+:root {
+    --bg-page: #fff;
+    --text-primary: #000;
+    --text-secondary: #888;
+    --card-bg: #fafafa;
+    --card-bg-accent: #f0f0f0;
+    --input-bg: #f0f0f0;
+    --border-color: #ccc;
+    --link-color: #007bff;
+    --button-bg: #000;
+    --button-fg: #fff;
+    --hover-button-bg: #222;
+    --citation-card-border: #ddd;
+}
+
+.dark-mode {
+    --bg-page: #121212;
+    --text-primary: #f5f5f5;
+    --text-secondary: #bbb;
+    --card-bg: #1e1e1e;
+    --card-bg-accent: #2b2b2b;
+    --input-bg: #2a2a2a;
+    --border-color: #444;
+    --link-color: #58a6ff;
+    --button-bg: #f5f5f5;
+    --button-fg: #121212;
+    --hover-button-bg: #ddd;
+    --citation-card-border: #333;
+}
+
+/* Apply variables */
+body {
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+}
+
+a {
+    color: var(--text-primary) !important;
+    text-decoration: none !important;
+}
+
 .citation-card {
-    border: 1px solid #ddd;
+    border: 1px solid var(--citation-card-border);
     border-radius: 8px;
     padding: 16px;
     margin-bottom: 20px;
-    background-color: #fafafa;
+    background-color: var(--card-bg);
     transition: box-shadow 0.2s ease-in-out;
 }
 
@@ -25,20 +67,20 @@
 
 .citation-meta {
     font-size: 14px;
-    color: #888;
+    color: var(--text-secondary);
     margin: 0;
 }
 
 .citation-link {
     font-size: 14px;
-    color: #007bff;
+    color: var(--link-color);
     text-decoration: underline;
     margin-right: auto;
 }
 
 .abstract-toggle {
-    background-color: #000;
-    color: #fff;
+    background-color: var(--button-bg);
+    color: var(--button-fg);
     border: none;
     padding: 8px 16px;
     border-radius: 6px;
@@ -49,13 +91,14 @@
 }
 
 .abstract-toggle:hover {
-    background-color: #222;
+    background-color: var(--hover-button-bg);
 }
 
 .abstract-box {
     margin-top: 12px;
     padding: 12px;
-    background-color: #f4f4f4;
+    background-color: var(--card-bg-accent);
+    color: var(--text-primary);
     border-radius: 6px;
     transition: max-height 0.3s ease, opacity 0.3s ease;
     overflow: hidden;
@@ -80,6 +123,12 @@
     align-items: center;
 }
 
+.bar-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .bar-right {
     display: flex;
     flex-direction: row;
@@ -87,10 +136,7 @@
     gap: 20px;
 }
 
-a {
-    text-decoration: none !important;
-    color: inherit;
-}
+/* Already handled above via :root and body */
 
 .link-button {
     padding: 6px 12px;
@@ -99,11 +145,11 @@ a {
 }
 
 .link-button:hover {
-    background-color: #e0e0e0;
+    background-color: var(--input-bg);
 }
 
 .link-button:active {
-    background-color: #cfcfcf;
+    background-color: var(--border-color);
     transform: scale(0.97);
 }
 
@@ -135,14 +181,14 @@ a {
 
 .subtext {
     font-weight: 500;
-    color: #b5b4b4;
+    color: var(--text-secondary);
 }
 
 #search-bar {
     font-size: 16px;
-    background-color: #f0f0f0;
+    background-color: var(--input-bg);
     padding: 12px 16px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     width: 100%;
     box-sizing: border-box;
@@ -150,6 +196,7 @@ a {
     transition: box-shadow 0.2s ease-in-out;
     /* add left padding to make room for the icon */
     padding-left: 40px;
+    color: var(--text-primary);
 }
 
 #search-bar:focus {
@@ -181,8 +228,8 @@ a {
 }
 
 .btn-wrapper button {
-    background-color: #000;
-    color: #fff;
+    background-color: var(--button-bg);
+    color: var(--button-fg);
     border: none;
     padding: 12px 24px;
     border-radius: 8px;
@@ -192,7 +239,7 @@ a {
 }
 
 .btn-wrapper button:hover {
-    background-color: #333;
+    background-color: var(--hover-button-bg);
 }
 
 .input-full {
@@ -227,9 +274,9 @@ a {
     appearance: none;
 
     font-size: 16px;
-    background-color: #f0f0f0;
+    background-color: var(--input-bg);
     padding: 12px 16px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     box-sizing: border-box;
     outline: none;
@@ -240,6 +287,7 @@ a {
     padding-right: 40px;
     width: 100%;
     /* make room for the arrow */
+    color: var(--text-primary);
 }
 
 .spacer {
@@ -288,8 +336,8 @@ a {
     position: fixed;
     bottom: 24px;
     right: 24px;
-    background-color: #000;
-    color: #fff;
+    background-color: var(--button-bg);
+    color: var(--button-fg);
     border: none;
     padding: 12px 16px;
     border-radius: 50%;
@@ -301,11 +349,65 @@ a {
 }
 
 .scroll-top:hover {
-    background-color: #222;
+    background-color: var(--hover-button-bg);
     transform: scale(1.05);
 }
 
 .scroll-top.hidden {
     opacity: 0;
     pointer-events: none;
+}
+
+/* --------------- THEME SWITCH STYLES --------------- */
+.theme-toggle {
+    margin-left: 16px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 22px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.3s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:checked+.slider:before {
+    transform: translateX(18px);
+}
+
+.switch {
+    z-index: 100;
 }
