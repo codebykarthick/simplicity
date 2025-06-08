@@ -1,9 +1,16 @@
+import os
 from typing import List
 
 from dto.response import Abstract
+from models.lm import LanguageModel
+from utils.config import CONFIG
 
 
 class Retriever:
+    """The retriever that is responsible to handle both the vector store and the ArXiv API fallback
+    to generate the final List[Abstract] list for the generator to generate the cited summary.
+    """
+
     def __init__(self) -> None:
         ...
 
@@ -58,21 +65,31 @@ class Retriever:
 
 
 class Generator:
-    def __init__(self) -> None:
-        ...
+    """Responsible for generating the cited summary from the sources retrieved by the Retriever, using a LM.
+    """
 
-    def summarize(self, abstracts: List[Abstract]) -> str:
+    def __init__(self) -> None:
+        prompt_path = os.path.join(
+            "prompt_templates", CONFIG["generator"]["template"])
+        with open(prompt_path, "r") as f:
+            self.base_prompt = f.read()
+        self.lang_model = LanguageModel()
+
+    def summarize(self, query: str, abstracts: List[Abstract]) -> str:
         """Use the LM to generate the cited summary from the list of abstracts retrieved by the retriever.
 
         Args:
+            query (str): The original query posted by the user for LM guidance.
             abstracts (List[Abstract]): The list of abstracts relevant to the query provided by the user.
 
         Returns:
             str: The cited summary returned by the LM.
         """
+        sources_str = "\n\n".join(
+            f"[{abstract.id}] - \"{abstract.abstract}\"" for abstract in abstracts
+        )
+        prompt = self.base_prompt.format(
+            query=query, sources=sources_str)
 
-        summary = "Universal Transformers introduce recurrence over depth to improve generalization " + \
-            "in sequence tasks [UT]. We can use different algorithms that involve transforms to solve" + \
-            "a reinforcement problem. [TR]."
-
-        return summary
+        # Use the language model (mock or real) to generate summary
+        return self.lang_model.generate(prompt)

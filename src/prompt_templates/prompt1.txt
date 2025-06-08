@@ -1,0 +1,17 @@
+You are a helpful assistant tasked with summarizing academic content in response to a specific query. Below is the user query followed by a list of academic sources. Each source contains metadata including its ID, title, abstract, and publication year.
+
+Your goal is to synthesize a concise, informative summary using relevant information from the abstracts, citing each source using its [ID] inline where appropriate.
+
+User Query:
+{query}
+
+Sources:
+{sources}
+
+Instructions:
+- Base your summary only on the provided abstracts.
+- Ensure every factual statement includes a [ID] citation.
+- Do not reference papers not included in the source list.
+- Keep the tone formal and academic.
+
+Summary:

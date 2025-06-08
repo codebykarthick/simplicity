@@ -31,8 +31,8 @@ class Engine:
         abstracts = self.retriever.fetch(query=query, limit=limit)
 
         # Combine together for the actual generation using the LM.
-        summary = self.generator.summarize(abstracts=abstracts
-                                           )
+        summary = self.generator.summarize(query=query, abstracts=abstracts)
+
         # Process the obtained response
         response = QueryResponse(
             summary=summary,
