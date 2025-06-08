@@ -1,12 +1,21 @@
 arxiv:
+  # The url to fetch ArXiv metadata from.
   url: "http://export.arxiv.org/api/query"
+  # The maximum results to fetch — lower has better performance.
   max_results: 25
 
 generator:
+  # The prompt template file under prompt_templates/ to use for the actual generation.
   template: prompt1.txt
+  # The type of language model to use, currently supports: mock|mistral|phi|gpt2
+  # Ensure your system can run the actual models before configuring this, as the model is created
+  # locally on the system running.
   lm: mock
+  # The temperature of sampling for varied output.
   temperature: 0.7
+  # The maximum number of output tokens.
   max_tokens: 512
 
 retriever:
+  # The type of retrieval system to use, currently supports: mock|local|remote|hybrid
   mode: mock
