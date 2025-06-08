@@ -18,9 +18,9 @@ generator:
 
 retriever:
   # The type of retrieval system to use, currently supports: mock|local|remote|hybrid
-  mode: mock
+  mode: remote
   # Update the chromadb vector store, only works for remote|hybrid
-  save: True
+  save: False
   # Folder to update under data/
   save_folder: chroma_store
   # The collection to be used in chromadb

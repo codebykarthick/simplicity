@@ -1,3 +1,4 @@
+from time import sleep
 from typing import List
 
 from dto.response import Abstract
@@ -9,6 +10,9 @@ class MockRetrievalSystem(BaseRetrievalSystem):
         super().__init__()
 
     def fetch(self, query: str, limit: int) -> List[Abstract]:
+        # Simulate a loading for UI
+        sleep(0.5)
+
         return [
             Abstract(
                 id="UT",

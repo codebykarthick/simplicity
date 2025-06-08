@@ -1,8 +1,9 @@
 import xml.etree.ElementTree as ET
-from time import time
 from typing import List, cast
 
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 from dto.response import Abstract
 from utils.config import load_config
@@ -10,7 +11,7 @@ from utils.constants import Constants
 from utils.logger import setup_logger
 from utils.timer import timeit
 
-logger = setup_logger
+logger = setup_logger()
 config = load_config()
 
 # Unpack the constants needed for this module.
@@ -38,8 +39,15 @@ def fetch_metadata(query: str, max_results: int = MAX_ARXIV_RESULTS) -> List[Abs
     }
 
     try:
-        response = requests.get(ARXIV_API_URL, params=params, timeout=10)
+        session = requests.Session()
+        retries = Retry(total=3, backoff_factor=1,
+                        status_forcelist=[502, 503, 504])
+        session.mount("http://", HTTPAdapter(max_retries=retries))
+
+        response = session.get(ARXIV_API_URL, params=params, timeout=20)
         response.raise_for_status()
+
+        logger.info(f"Response body size: {len(response.text)}")
     except Exception as e:
         logger.error(f"Error fetching arXiv data for query='{query}': {e}")
         return []
@@ -66,7 +74,7 @@ def fetch_metadata(query: str, max_results: int = MAX_ARXIV_RESULTS) -> List[Abs
                     pdf_url = link.attrib.get("href")
                     break
 
-            if title_node and summary_node and published_node:
+            if title_node is not None and summary_node is not None and published_node is not None:
                 # Parse the title node
                 title = cast(str, title_node.text).strip().replace("\n", " ")
 
@@ -107,6 +115,8 @@ def fetch_metadata(query: str, max_results: int = MAX_ARXIV_RESULTS) -> List[Abs
             else:
                 logger.warning(
                     "Error in parsing, some of the nodes are empty!")
+                logger.warning(
+                    f"{title_node} : {summary_node} : {published_node}")
         except Exception as parse_err:
             logger.warning(
                 f"Skipped an entry due to parsing error: {parse_err}")
