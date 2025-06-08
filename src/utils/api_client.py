@@ -2,10 +2,11 @@
 
 import xml.etree.ElementTree as ET
 from time import time
-from typing import Dict, List, cast
+from typing import List, cast
 
 import requests
 
+from dto.response import Abstract
 from utils.config import CONFIG
 from utils.constants import Constants
 from utils.logger import logger
@@ -14,7 +15,7 @@ from utils.logger import logger
 ARXIV_API_URL, MAX_ARXIV_RESULTS = CONFIG[Constants.ARXIV_URL], CONFIG[Constants.ARXIV_MAX_RESULTS]
 
 
-def fetch_metadata(query: str, max_results: int = MAX_ARXIV_RESULTS) -> List[Dict]:
+def fetch_metadata(query: str, max_results: int = MAX_ARXIV_RESULTS) -> List[Abstract]:
     """Query the arXiv API with `query` and return a list of metadata dicts.
     Each dict contains: id, title, abstract, authors, published, categories.
 
@@ -23,7 +24,7 @@ def fetch_metadata(query: str, max_results: int = MAX_ARXIV_RESULTS) -> List[Dic
         max_results (int, optional): The maximum number of results needed for the query. Defaults to MAX_ARXIV_RESULTS.
 
     Returns:
-        List[Dict]: The list of relevant papers' metadata returned by ArXiv
+        List[Abstract]: The list of relevant papers' metadata returned by ArXiv
     """
     # Build the request URL and parameters
     params = {
@@ -92,15 +93,15 @@ def fetch_metadata(query: str, max_results: int = MAX_ARXIV_RESULTS) -> List[Dic
                     for cat in entry.findall("atom:category", ns)
                 ]
 
-                papers.append({
-                    "id": my_id,
-                    "title": title,
-                    "abstract": abstract,
-                    "authors": authors,
-                    "published": published,
-                    "categories": categories,
-                    "pdf_url": pdf_url
-                })
+                papers.append(Abstract(
+                    id=my_id,
+                    title=title,
+                    abstract=abstract,
+                    authors=authors,
+                    year=published[:4],
+                    categories=categories,
+                    pdf_url=pdf_url or ""
+                ))
             else:
                 logger.warning(
                     "Error in parsing, some of the nodes are empty!")
