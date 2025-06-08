@@ -53,7 +53,6 @@ def fetch_metadata(query: str, max_results: int = MAX_ARXIV_RESULTS) -> List[Dic
     papers = []
     for entry in root.findall("atom:entry", ns):
         try:
-            id_node = entry.find("atom:id", ns)
             title_node = entry.find("atom:title", ns)
             summary_node = entry.find("atom:summary", ns)
             published_node = entry.find("atom:published", ns)
@@ -64,9 +63,18 @@ def fetch_metadata(query: str, max_results: int = MAX_ARXIV_RESULTS) -> List[Dic
                     pdf_url = link.attrib.get("href")
                     break
 
-            if id_node and title_node and summary_node and published_node:
-                arxiv_id = cast(str, id_node.text).split("/")[-1]
+            if title_node and summary_node and published_node:
+                # Parse the title node
                 title = cast(str, title_node.text).strip().replace("\n", " ")
+
+                # Parse a better ID than the one returned by ArXiv
+                words = title.split()
+                upper_words = [
+                    word for word in words if word and word[0].isupper()]
+                my_id = ''.join(word[0] for word in upper_words[:2]) if len(
+                        upper_words) >= 2 else title[:2].upper()
+
+                # Get the abstract and other data
                 abstract = cast(
                     str, summary_node.text).strip().replace("\n", " ")
                 published = cast(str, published_node.text)
@@ -85,7 +93,7 @@ def fetch_metadata(query: str, max_results: int = MAX_ARXIV_RESULTS) -> List[Dic
                 ]
 
                 papers.append({
-                    "id": arxiv_id,
+                    "id": my_id,
                     "title": title,
                     "abstract": abstract,
                     "authors": authors,
