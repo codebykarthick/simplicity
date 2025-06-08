@@ -52,6 +52,8 @@ class Generator:
     """
 
     def __init__(self) -> None:
+        logger.info(
+            f"Loading prompt: {CONFIG["generator"]["template"]} for generation.")
         prompt_path = os.path.join(
             "prompt_templates", CONFIG["generator"]["template"])
         with open(prompt_path, "r") as f:
