@@ -4,9 +4,7 @@ from typing import List
 from dto.response import Abstract
 from models.lm import LanguageModel
 from models.retrieval_systems.hybrid import HybridRetrievalSystem
-from models.retrieval_systems.local import LocalRetrievalSystem
 from models.retrieval_systems.mock import MockRetrievalSystem
-from models.retrieval_systems.remote import RemoteRetrievalSystem
 from utils.config import load_config
 from utils.constants import Constants
 from utils.logger import setup_logger
@@ -22,19 +20,21 @@ class Retriever:
 
     def __init__(self) -> None:
         ret_config = config[Constants.RETRIVER]
-        mode = ret_config[Constants.MODE]
+        mode = ret_config[Constants.MODE].lower()
+        logger.info(f"Creating a '{mode}' retrieval system instance.")
 
-        logger.info(f"Creating a {mode} retrieval system instance.")
-        self.system = MockRetrievalSystem()
-
-        if mode == "local":
-            self.system = LocalRetrievalSystem()
+        if mode == "mock":
+            self.system = MockRetrievalSystem()
+        elif mode == "local":
+            self.system = HybridRetrievalSystem(is_local=True, is_remote=False)
         elif mode == "remote":
-            self.system = RemoteRetrievalSystem()
+            self.system = HybridRetrievalSystem(is_local=False, is_remote=True)
         elif mode == "hybrid":
-            self.system = HybridRetrievalSystem()
-        elif mode != "mock":
-            logger.warning(f"{mode} is not a valid option, falling back to ")
+            self.system = HybridRetrievalSystem(is_local=True, is_remote=True)
+        else:
+            logger.warning(
+                f"'{mode}' is not recognized; defaulting to mock retrieval.")
+            self.system = MockRetrievalSystem()
 
     def fetch(self, query: str, limit: int) -> List[Abstract]:
         """Method to fetch from both the cached vector storage and arxiv api according to the query
@@ -56,7 +56,7 @@ class Generator:
 
     def __init__(self) -> None:
         logger.info(
-            f"Loading prompt: {config["generator"]["template"]} for generation.")
+            f"Loading prompt: {config['generator']['template']} for generation.")
         prompt_path = os.path.join(
             "prompt_templates", config["generator"]["template"])
         with open(prompt_path, "r") as f:

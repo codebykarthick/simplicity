@@ -11,3 +11,6 @@ class Constants(str, Enum):
     LM = "lm"
     TEMPERATURE = "temperature"
     MAX_TOKENS = "max_tokens"
+    SAVE = "save"
+    SAVE_FOLDER = "save_folder"
+    COL_DOC = "collection_docs"

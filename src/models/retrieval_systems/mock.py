@@ -13,12 +13,9 @@ class MockRetrievalSystem(BaseRetrievalSystem):
             Abstract(
                 id="UT",
                 title="Universal Transformers",
-                authors=[
-                    "Mostafa Dehghani", "Stephan Gouws", "Oriol Vinyals",
-                    "Jakob Uszkoreit", "Łukasz Kaiser"
-                ],
+                authors="Mostafa Dehghani, Stephan Gouws, Oriol Vinyals, Jakob Uszkoreit, Łukasz Kaiser",
                 year="2019",
-                categories=["cs.CL"],
+                categories="cs.CL",
                 abstract=(
                     "Universal Transformers generalize the standard Transformer by introducing recurrence "
                     "over depth, allowing dynamic halting per token and achieving better generalization on "
@@ -30,11 +27,9 @@ class MockRetrievalSystem(BaseRetrievalSystem):
             Abstract(
                 id="TR",
                 title="Transformers in Reinforcement Learning: A Survey",
-                authors=[
-                    "Pranav Agarwal", "Aamer Abdul Rahman", "Pierre-Luc St-Charles", "Simon J.D. Prince", "Samira Ebrahimi Kahou"
-                ],
+                authors="Pranav Agarwal, Aamer Abdul Rahman, Pierre-Luc St-Charles, Simon J.D. Prince, Samira Ebrahimi Kahou",
                 year="2023",
-                categories=["cs.LG"],
+                categories="cs.LG",
                 abstract=(
                     "Transformers have significantly impacted domains like natural language processing, computer vision, and"
                     "robotics, where they improve performance compared to other neural networks. This survey explores how"

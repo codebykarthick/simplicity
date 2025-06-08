@@ -1,5 +1,3 @@
-# src/fetcher.py
-
 import xml.etree.ElementTree as ET
 from time import time
 from typing import List, cast
@@ -101,9 +99,9 @@ def fetch_metadata(query: str, max_results: int = MAX_ARXIV_RESULTS) -> List[Abs
                     id=my_id,
                     title=title,
                     abstract=abstract,
-                    authors=authors,
+                    authors=", ".join(authors),
                     year=published[:4],
-                    categories=categories,
+                    categories=", ".join(categories),
                     pdf_url=pdf_url or ""
                 ))
             else:

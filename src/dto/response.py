@@ -6,9 +6,9 @@ from pydantic import BaseModel
 class Abstract(BaseModel):
     id: str
     title: str
-    authors: List[str]
+    authors: str
     year: str
-    categories: List[str]
+    categories: str
     abstract: str
     pdf_url: str
 

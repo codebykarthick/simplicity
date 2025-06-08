@@ -186,6 +186,7 @@ const processCitations = (citationsElement, citationsData) => {
 }
 
 const shrinkAuthors = (authors) => {
+    authors = authors.split(", ")
     if (authors.length <= 3) {
         return authors.join(", ");
     } else {
