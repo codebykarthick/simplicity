@@ -7,9 +7,12 @@ from models.retrieval_systems.hybrid import HybridRetrievalSystem
 from models.retrieval_systems.local import LocalRetrievalSystem
 from models.retrieval_systems.mock import MockRetrievalSystem
 from models.retrieval_systems.remote import RemoteRetrievalSystem
-from utils.config import CONFIG
+from utils.config import load_config
 from utils.constants import Constants
-from utils.logger import logger
+from utils.logger import setup_logger
+
+logger = setup_logger()
+config = load_config()
 
 
 class Retriever:
@@ -18,7 +21,7 @@ class Retriever:
     """
 
     def __init__(self) -> None:
-        ret_config = CONFIG[Constants.RETRIVER]
+        ret_config = config[Constants.RETRIVER]
         mode = ret_config[Constants.MODE]
 
         logger.info(f"Creating a {mode} retrieval system instance.")
@@ -53,9 +56,9 @@ class Generator:
 
     def __init__(self) -> None:
         logger.info(
-            f"Loading prompt: {CONFIG["generator"]["template"]} for generation.")
+            f"Loading prompt: {config["generator"]["template"]} for generation.")
         prompt_path = os.path.join(
-            "prompt_templates", CONFIG["generator"]["template"])
+            "prompt_templates", config["generator"]["template"])
         with open(prompt_path, "r") as f:
             self.base_prompt = f.read()
         self.lang_model = LanguageModel()

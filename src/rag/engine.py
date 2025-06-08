@@ -1,6 +1,8 @@
 from dto.response import QueryResponse
 from rag.handler import Generator, Retriever
-from utils.logger import logger
+from utils.logger import setup_logger
+
+logger = setup_logger()
 
 
 class Engine:

@@ -7,14 +7,20 @@ from typing import List, cast
 import requests
 
 from dto.response import Abstract
-from utils.config import CONFIG
+from utils.config import load_config
 from utils.constants import Constants
-from utils.logger import logger
+from utils.logger import setup_logger
+from utils.timer import timeit
+
+logger = setup_logger
+config = load_config()
 
 # Unpack the constants needed for this module.
-ARXIV_API_URL, MAX_ARXIV_RESULTS = CONFIG[Constants.ARXIV_URL], CONFIG[Constants.ARXIV_MAX_RESULTS]
+ARXIV_API_URL = config[Constants.ARXIV][Constants.URL]
+MAX_ARXIV_RESULTS = config[Constants.ARXIV][Constants.URL]
 
 
+@timeit
 def fetch_metadata(query: str, max_results: int = MAX_ARXIV_RESULTS) -> List[Abstract]:
     """Query the arXiv API with `query` and return a list of metadata dicts.
     Each dict contains: id, title, abstract, authors, published, categories.
@@ -32,8 +38,6 @@ def fetch_metadata(query: str, max_results: int = MAX_ARXIV_RESULTS) -> List[Abs
         "start": 0,
         "max_results": max_results
     }
-
-    toc = time()
 
     try:
         response = requests.get(ARXIV_API_URL, params=params, timeout=10)
@@ -110,8 +114,6 @@ def fetch_metadata(query: str, max_results: int = MAX_ARXIV_RESULTS) -> List[Abs
                 f"Skipped an entry due to parsing error: {parse_err}")
             continue
 
-    tic = time()
-
     logger.info(
-        f"Fetched {len(papers)} papers for query='{query}' in {tic-toc} seconds.")
+        f"Fetched {len(papers)} papers for query='{query}'.")
     return papers

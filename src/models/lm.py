@@ -4,9 +4,12 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from transformers.pipelines import pipeline
 
-from utils.config import CONFIG
+from utils.config import load_config
 from utils.constants import Constants
-from utils.logger import logger
+from utils.logger import setup_logger
+
+logger = setup_logger()
+config = load_config()
 
 
 class LanguageModel:
@@ -15,7 +18,7 @@ class LanguageModel:
     """
 
     def __init__(self) -> None:
-        gen_config = CONFIG[Constants.GENERATOR]
+        gen_config = config[Constants.GENERATOR]
         model_key = gen_config[Constants.LM].lower()
         temperature = gen_config[Constants.TEMPERATURE]
         max_tokens = gen_config[Constants.MAX_TOKENS]

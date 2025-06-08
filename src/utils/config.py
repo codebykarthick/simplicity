@@ -1,10 +1,11 @@
+import sys
+
 import yaml
 
 from utils.logger import setup_logger
 
 CONFIG = None
-
-log = setup_logger()
+logger = setup_logger()
 
 
 def load_config():
@@ -19,6 +20,9 @@ def load_config():
             with open("./config.yml") as stream:
                 CONFIG = yaml.safe_load(stream)
         except yaml.YAMLError as exc:
-            log.fatal(f"Exception occurred trying to load config: {exc}")
+            logger.fatal(f"Exception occurred trying to load config: {exc}")
+            sys.exit(1)
+
+        logger.info(f"Loaded config file successfully: {CONFIG}")
 
     return CONFIG
