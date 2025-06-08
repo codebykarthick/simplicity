@@ -17,9 +17,13 @@ document.addEventListener("DOMContentLoaded", () => {
         // Hide the pre-text and show the mid-text spinner.
         const preTextElement = document.getElementById("pre-text");
         const midTextElement = document.getElementById("mid-text");
+        const postTextElement = document.getElementById("post-text");
 
-        preTextElement.classList.remove("not-hidden");
         preTextElement.classList.add("hidden");
+        preTextElement.classList.remove("not-hidden");
+
+        postTextElement.classList.add("hidden");
+        postTextElement.classList.remove("not-hidden");
 
         midTextElement.classList.remove("hidden");
         midTextElement.classList.add("not-hidden");
@@ -187,6 +191,7 @@ const processCitations = (citationsElement, citationsData) => {
 
 const shrinkAuthors = (authors) => {
     authors = authors.split(", ")
+    console.log(authors);
     if (authors.length <= 3) {
         return authors.join(", ");
     } else {

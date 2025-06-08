@@ -12,6 +12,7 @@
     --button-fg: #fff;
     --hover-button-bg: #222;
     --citation-card-border: #ddd;
+    --loader-color: #000
 }
 
 .dark-mode {
@@ -27,6 +28,7 @@
     --button-fg: #121212;
     --hover-button-bg: #ddd;
     --citation-card-border: #333;
+    --loader-color: #f5f5f5
 }
 
 /* Apply variables */
@@ -310,7 +312,7 @@ a {
     aspect-ratio: 1;
     border-radius: 50%;
     border: 8px solid;
-    border-color: #000 #0000;
+    border-color: var(--loader-color) #0000;
     animation: l1 1s infinite;
 }
 
