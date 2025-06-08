@@ -82,7 +82,8 @@ class HybridRetrievalSystem(BaseRetrievalSystem):
 
         for doc, meta, id_ in zip(docs, metadatas, ids):
             abstract = Abstract(
-                id=id_,
+                id=cast(str, meta.get("my_id", "")),
+                arxiv_id=id_,
                 title=cast(str, meta.get("title", "")),
                 authors=cast(str, meta.get("authors", "")),
                 year=cast(str, meta.get("year", "")),
@@ -125,9 +126,10 @@ class HybridRetrievalSystem(BaseRetrievalSystem):
         """
         # Update the chromadb store async
         documents = [a.abstract for a in abstracts]
-        ids = [a.id for a in abstracts]
+        ids = [a.arxiv_id for a in abstracts]
         metadatas = [
             cast(Metadata, {
+                "my_id": a.id,
                 "title": a.title,
                 "authors": a.authors,
                 "year": a.year,

@@ -5,6 +5,7 @@ from pydantic import BaseModel
 
 class Abstract(BaseModel):
     id: str
+    arxiv_id: str
     title: str
     authors: str
     year: str

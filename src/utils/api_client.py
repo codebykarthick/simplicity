@@ -64,6 +64,7 @@ def fetch_metadata(query: str, max_results: int = MAX_ARXIV_RESULTS) -> List[Abs
     papers = []
     for entry in root.findall("atom:entry", ns):
         try:
+            arxiv_id_node = entry.find("atom:id", ns)
             title_node = entry.find("atom:title", ns)
             summary_node = entry.find("atom:summary", ns)
             published_node = entry.find("atom:published", ns)
@@ -90,6 +91,10 @@ def fetch_metadata(query: str, max_results: int = MAX_ARXIV_RESULTS) -> List[Abs
                     str, summary_node.text).strip().replace("\n", " ")
                 published = cast(str, published_node.text)
 
+                arxiv_id = cast(str, arxiv_id_node.text).strip(
+                ) if arxiv_id_node is not None else ""
+                arxiv_id = arxiv_id.split("/")[-1]
+
                 # Authors
                 authors = [
                     name_tag.text
@@ -105,6 +110,7 @@ def fetch_metadata(query: str, max_results: int = MAX_ARXIV_RESULTS) -> List[Abs
 
                 papers.append(Abstract(
                     id=my_id,
+                    arxiv_id=arxiv_id,
                     title=title,
                     abstract=abstract,
                     authors=", ".join(authors),
