@@ -70,6 +70,7 @@ class HybridRetrievalSystem(BaseRetrievalSystem):
         raw_docs = results.get("documents") or []
         raw_metas = results.get("metadatas") or []
         raw_ids = results.get("ids") or []
+        raw_scores = results.get("distances") or []
 
         # Each raw_* is a list of lists; take first list if present, else empty
         docs = raw_docs[0] if raw_docs and isinstance(
@@ -77,10 +78,16 @@ class HybridRetrievalSystem(BaseRetrievalSystem):
         metadatas = raw_metas[0] if raw_metas and isinstance(
             raw_metas[0], list) else []
         ids = raw_ids[0] if raw_ids and isinstance(raw_ids[0], list) else []
+        scores = raw_scores[0] if raw_scores and isinstance(
+            raw_scores[0], list) else []
 
         abstracts = []
 
-        for doc, meta, id_ in zip(docs, metadatas, ids):
+        for doc, meta, id_, score in zip(docs, metadatas, ids, scores):
+            if score > self.threshold:
+                # If score — the distance is greater than threshold
+                # Ignore
+                continue
             abstract = Abstract(
                 id=cast(str, meta.get("my_id", "")),
                 arxiv_id=id_,

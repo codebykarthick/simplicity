@@ -21,6 +21,7 @@ class BaseRetrievalSystem(ABC):
         self.save_folder = ret_config[Constants.SAVE_FOLDER]
         self.collection_docs = ret_config[Constants.COL_DOC]
         self.should_save = ret_config[Constants.SAVE]
+        self.threshold = ret_config[Constants.THRESHOLD]
 
         self.client = chromadb.PersistentClient(
             path=self.save_folder

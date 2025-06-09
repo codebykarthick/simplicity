@@ -28,3 +28,5 @@ retriever:
   save_folder: chroma_store
   # The collection to be used in chromadb
   collection_docs: arxiv_docs
+  # The threshold to consider good documents
+  threshold: 0.4
