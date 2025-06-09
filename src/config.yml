@@ -17,7 +17,7 @@ generator:
   # The temperature of sampling for varied output.
   temperature: 0.7
   # The maximum number of output tokens.
-  max_tokens: 512
+  max_tokens: 2048
 
 retriever:
   # The type of retrieval system to use, currently supports: mock|local|remote|hybrid

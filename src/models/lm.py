@@ -72,7 +72,9 @@ class LanguageModel:
 
         outputs = self.generator(prompt)
         if isinstance(outputs, list) and "generated_text" in outputs[0]:
-            return str(outputs[0]["generated_text"])
+            generated = str(outputs[0]["generated_text"])
+            response = generated[len(prompt):].strip()
+            return response
         else:
             logger.error(
                 "Unexpected output format from language model pipeline.")
