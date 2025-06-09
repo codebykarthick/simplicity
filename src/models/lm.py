@@ -27,7 +27,7 @@ class LanguageModel:
         self.is_mock = False
 
         if model_key == "mistral":
-            model_id = "mistralai/Mistral-7B-v0.1"
+            model_id = "mistralai/Mistral-7B-Instruct-v0.1"
         elif model_key == "phi":
             model_id = "microsoft/phi-2"
         elif model_key == "gpt2":
