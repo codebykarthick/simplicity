@@ -22,19 +22,20 @@ class LanguageModel:
         model_key = gen_config[Constants.LM].lower()
         temperature = gen_config[Constants.TEMPERATURE]
         max_tokens = gen_config[Constants.MAX_TOKENS]
+        hf_key = gen_config[Constants.HF_KEY]
 
         self.is_mock = False
 
         if model_key == "mistral":
             model_id = "mistralai/Mistral-7B-v0.1"
         elif model_key == "phi":
-            model_id = "togethercomputer/phi-2"
+            model_id = "microsoft/phi-2"
         elif model_key == "gpt2":
-            model_id = "gpt2"
+            model_id = "openai-community/gpt2"
         elif model_key == "mock":
             model_id = "mock"
         else:
-            model_id = "gpt2"
+            model_id = "openai-community/gpt2"
             logger.warning(f"Unknown LM '{model_key}', falling back to gpt2")
 
         if model_key == "mock":
@@ -49,10 +50,9 @@ class LanguageModel:
             return
 
         logger.info(f"Loading LM model '{model_id}'")
-        self.tokenizer = AutoTokenizer.from_pretrained(model_id)
+        self.tokenizer = AutoTokenizer.from_pretrained(model_id, token=hf_key)
         self.model = AutoModelForCausalLM.from_pretrained(
             model_id,
-            torch_dtype=torch.float16,
             device_map="auto"
         )
         # Create a text-generation pipeline

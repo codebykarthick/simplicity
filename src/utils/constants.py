@@ -14,3 +14,4 @@ class Constants(str, Enum):
     SAVE = "save"
     SAVE_FOLDER = "save_folder"
     COL_DOC = "collection_docs"
+    HF_KEY = "hf-key"
