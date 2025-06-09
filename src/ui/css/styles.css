@@ -39,7 +39,7 @@ body {
 
 a {
     color: var(--text-primary) !important;
-    text-decoration: none !important;
+    text-decoration: none;
 }
 
 .citation-card {
@@ -76,7 +76,7 @@ a {
 .citation-link {
     font-size: 14px;
     color: var(--link-color);
-    text-decoration: underline;
+    text-decoration: underline !important;
     margin-right: auto;
 }
 
