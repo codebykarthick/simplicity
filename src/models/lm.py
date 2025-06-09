@@ -22,12 +22,13 @@ class LanguageModel:
         model_key = gen_config[Constants.LM].lower()
         temperature = gen_config[Constants.TEMPERATURE]
         max_tokens = gen_config[Constants.MAX_TOKENS]
-        hf_key = gen_config[Constants.HF_KEY]
+        hf_key = None
 
         self.is_mock = False
 
         if model_key == "mistral":
             model_id = "mistralai/Mistral-7B-Instruct-v0.1"
+            hf_key = gen_config[Constants.HF_KEY]
         elif model_key == "phi":
             model_id = "microsoft/phi-2"
         elif model_key == "gpt2":

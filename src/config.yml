@@ -13,7 +13,7 @@ generator:
   lm: phi
   # If LM is mistral — access is restricted, provide the HF key to use below, else use the other
   # Models
-  hf-key: TEST_TOKEN
+  hf-key: 
   # The temperature of sampling for varied output.
   temperature: 0.7
   # The maximum number of output tokens.
