@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 from typing import List
 
 import chromadb
-from chromadb.config import Settings
 
 from dto.response import Abstract
 from utils.config import load_config
@@ -23,9 +22,9 @@ class BaseRetrievalSystem(ABC):
         self.collection_docs = ret_config[Constants.COL_DOC]
         self.should_save = ret_config[Constants.SAVE]
 
-        self.client = chromadb.Client(Settings(
-            persist_directory=self.save_folder
-        ))
+        self.client = chromadb.PersistentClient(
+            path=self.save_folder
+        )
         self.collection = self.client.get_or_create_collection(
             self.collection_docs
         )

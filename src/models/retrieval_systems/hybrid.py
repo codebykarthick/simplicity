@@ -37,7 +37,7 @@ class HybridRetrievalSystem(BaseRetrievalSystem):
         Returns:
             List[Abstract]: The list of abstracts to generate the summary for.
         """
-        local_abstracts = []
+        local_abstracts, remote_abstracts = [], []
 
         if self.is_local:
             local_abstracts = self.fetch_local(query=query, limit=limit)
