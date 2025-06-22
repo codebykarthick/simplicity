@@ -1,5 +1,5 @@
 # simplicity
-A hybrid RAG based on Arxiv metadata API. Discussed in depth in [this multi-part blog post.](https://codebykarthick.github.io/projects/2025-06-09-simplicity-1/)
+A hybrid RAG based on Arxiv metadata API. Discussed in depth in [this multi-part blog post.](https://dev.to/sri_harikarthik_909342ac/rag-made-simple-simplicitys-approach-to-modular-retrieval-generation-part-1-43i)
 
 ## Introduction
 The aim of this RAG is to provide a simple web interface through which an user can post queries along with the maximum number of results they want to be fetched for generation. The query is first checked against the local vector store, if no results are sufficient, it then searches arxiv metadata api for relevant content. This fetched content of title, authors, abstract and id is then both cached in the vector database (ChromaDB) and also simultaneously fed into the LLM to generate a cited summary of all the abstracts. This resulting summary, along with its citations are displayed.
